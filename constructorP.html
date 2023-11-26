@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Person Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .person-info {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .person-info h2 {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="person-info">
+    <h2>Person Information</h2>
+    <p id="fullName"></p>
+    <p id="age"></p>
+    <button class="btn" onclick="displayPersonInfo()">Display Info</button>
+  </div>
+
+  <script>
+    function Person(firstname, lastname, date_of_birth) {
+      this.firstname = firstname;
+      this.lastname = lastname;
+      this.date_of_birth = new Date(date_of_birth);
+      this.fullName = function() {
+        return `${this.firstname} ${this.lastname}`;
+      };
+      this.age = function() {
+        const currentYear = new Date().getFullYear();
+        const birthYear = this.date_of_birth.getFullYear();
+        return currentYear - birthYear;
+      };
+      this.toString = function() {
+        return `${this.fullName()} is ${this.age()} years old!`;
+      };
+    }
+
+    function displayPersonInfo() {
+      const person = new Person('John', 'Doe', '1990-01-01');
+      document.getElementById('fullName').textContent = `Full Name: ${person.fullName()}`;
+      document.getElementById('age').textContent = `Age: ${person.age()}`;
+      alert(person.toString());
+    }
+  </script>
+</body>
+</html>
