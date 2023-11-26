@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Normalize Full Name</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    input[type="text"], button {
+      padding: 8px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Normalize Full Name</h1>
+  <label for="fullName">Enter your full name:</label>
+  <input type="text" id="fullNameInput" placeholder="Full Name">
+  <button onclick="normalizeName()">Normalize Name</button>
+
+  <div id="output"></div>
+
+  <script>
+    function proper(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+
+    function normalizeWord(word) {
+      let normalized = '';
+      for (let i = 0; i < word.length; i += 2) {
+        normalized += proper(word.slice(i, i + 2));
+      }
+      return normalized;
+    }
+
+    function normalizeSentence(sentence) {
+      const words = sentence.split(' ');
+      const normalizedWords = words.map(word => normalizeWord(word)).join(' ');
+      return normalizedWords;
+    }
+
+    function normalizeName() {
+      const fullName = document.getElementById('fullNameInput').value.trim();
+      const outputDiv = document.getElementById('output');
+
+      if (fullName !== '') {
+        const normalizedFullName = normalizeSentence(fullName);
+        outputDiv.textContent = "Normalized Name: " + normalizedFullName;
+      } else {
+        outputDiv.textContent = "Please enter your full name.";
+      }
+    }
+  </script>
+</body>
+</html>

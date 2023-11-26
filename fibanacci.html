@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fibonacci Elements in Range</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    input[type="number"], button {
+      padding: 8px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fibonacci Elements in Range</h1>
+  <label for="startIndex">Start Index:</label>
+  <input type="number" id="startIndex" placeholder="Enter start index">
+  <label for="endIndex">End Index:</label>
+  <input type="number" id="endIndex" placeholder="Enter end index">
+  <button onclick="getFibonacci()">Get Fibonacci Elements</button>
+
+  <div id="output"></div>
+
+  <script>
+    function getFibonacci() {
+      const startIndex = parseInt(document.getElementById('startIndex').value);
+      const endIndex = parseInt(document.getElementById('endIndex').value);
+
+      if (!isNaN(startIndex) && !isNaN(endIndex) && startIndex >= 0 && endIndex >= startIndex) {
+        const result = fib(startIndex, endIndex);
+        document.getElementById('output').textContent = "Fibonacci Elements: " + result.join(', ');
+      } else {
+        document.getElementById('output').textContent = "Please enter valid start and end indexes.";
+      }
+    }
+
+    function fib(start, end) {
+      let sequence = [];
+      let a = 0, b = 1;
+
+      for (let i = 0; i <= end; i++) {
+        if (i >= start) {
+          sequence.push(a);
+        }
+        let temp = a + b;
+        a = b;
+        b = temp;
+      }
+
+      return sequence.slice(start, end + 1);
+    }
+  </script>
+</body>
+</html>

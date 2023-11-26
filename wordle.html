@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wordle Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Wordle Game</h1>
+  <p>Guess the secret word!</p>
+  <input type="text" id="userGuess" placeholder="Enter your guess">
+  <button onclick="checkGuess()">Submit Guess</button>
+
+  <div id="output"></div>
+
+  <script>
+    const secretWords = ['apple', 'banana', 'orange', 'grape', 'melon'];
+    const secretWord = secretWords[Math.floor(Math.random() * secretWords.length)];
+    let attempts = 5;
+
+    function checkGuess() {
+      const userGuess = document.getElementById('userGuess').value.toLowerCase().trim();
+      const outputDiv = document.getElementById('output');
+
+      if (attempts > 0) {
+        if (userGuess === secretWord) {
+          outputDiv.textContent = `Congratulations! You guessed the word "${secretWord}" correctly! You win!`;
+        } else {
+          attempts--;
+          outputDiv.textContent = `Wrong guess. You have ${attempts} attempt(s) left. Try again.`;
+        }
+      } else {
+        outputDiv.textContent = `Sorry, you've used all your attempts. The secret word was "${secretWord}". You lose.`;
+        document.getElementById('userGuess').setAttribute('disabled', 'disabled');
+      }
+    }
+  </script>
+</body>
+</html>

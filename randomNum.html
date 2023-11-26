@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Number Count</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    input[type="number"], button {
+      padding: 8px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Number Count</h1>
+  <label for="rangeStart">Range Start:</label>
+  <input type="number" id="rangeStart" placeholder="Enter range start">
+  <label for="rangeEnd">Range End:</label>
+  <input type="number" id="rangeEnd" placeholder="Enter range end">
+  <label for="numElements">Number of Elements:</label>
+  <input type="number" id="numElements" placeholder="Enter number of elements">
+  <button onclick="generateAndCount()">Generate & Count</button>
+
+  <div id="output"></div>
+
+  <script>
+    function generateAndCount() {
+      const start = parseInt(document.getElementById('rangeStart').value);
+      const end = parseInt(document.getElementById('rangeEnd').value);
+      const numElements = parseInt(document.getElementById('numElements').value);
+
+      if (!isNaN(start) && !isNaN(end) && !isNaN(numElements) && start <= end && numElements > 0) {
+        const randomNumbers = rand(start, end, numElements);
+        const countResult = count(randomNumbers);
+        displayCount(countResult);
+      } else {
+        document.getElementById('output').textContent = "Please enter valid inputs.";
+      }
+    }
+
+    function rand(min, max, n) {
+      let randomArray = [];
+      for (let i = 0; i < n; i++) {
+        let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+        randomArray.push(randomNum);
+      }
+      return randomArray;
+    }
+
+    function count(arr) {
+      let countMap = {};
+      arr.forEach(num => {
+        countMap[num] = (countMap[num] || 0) + 1;
+      });
+      return countMap;
+    }
+
+    function displayCount(countResult) {
+      let output = "";
+      for (const [key, value] of Object.entries(countResult)) {
+        output += `${key} is repeated ${value} time${value !== 1 ? 's' : ''}<br>`;
+      }
+      document.getElementById('output').innerHTML = output;
+    }
+  </script>
+</body>
+</html>
